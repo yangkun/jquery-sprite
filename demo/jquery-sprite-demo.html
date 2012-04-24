@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="ko-KR">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Sprite Demo</title>
+	<link rel="stylesheet" type="text/css" href="style.css" media="all" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery.sprite.js"></script>
+	<script type="text/javascript">
+	var $sprite = null,
+		$sprite2 = null;
+	$(function() {
+		$sprite = $('#btnGmail').sprite({
+			cellSize: [52,37],
+			cells: [7, 7],
+			initCell: [0,0],
+			wrap: false,
+			interval: 80
+		}).hover(function() {
+			$sprite.go();
+		},function() {
+			$sprite.revert();
+		});;
+		$sprite2 = $('#btnCal').sprite({
+			cellSize: [52,37],
+			cells: [7, 7],
+			initCell: [1,0],
+			wrap: false,
+			interval: 80
+		}).hover(function() {
+			$sprite2.go();
+		},function() {
+			$sprite2.revert();
+		});;
+
+	});
+	</script>
+</head>
+<body>
+	<span id="btnGmail" class="google-sprite"></span>
+	<span id="btnCal" class="google-sprite"></span>
+
+</body>
+</html>
