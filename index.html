@@ -6,7 +6,9 @@
 	<title>Jquery-sprite by yangkun</title>
 	<link rel="stylesheet" href="stylesheets/styles.css">
 	<link rel="stylesheet" href="stylesheets/pygment_trac.css">
+	<link rel="stylesheet" href="stylesheets/demo.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.sprite.min.js"></script>
 	<script src="javascripts/respond.js"></script>
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,7 +39,18 @@
 		<span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
 	</div>
 
-	<h3>Usage</h3>
+
+	<div id="pageNav">
+		<ul>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#options">Options</a></li>
+			<li><a href="#methods">Methods</a></li>
+			<li><a href="#demo">Demo</a></li>
+			<li><a href="#contact">Contact</a></li>
+		</ul>
+	</div>
+
+	<h3 id="usage">Usage</h3>
 
 	<p>
 		require jquery-core
@@ -53,10 +66,11 @@
 		wrap: false,
 		interval: 50
 	});
+&lt;/script&gt;
 &lt;span id="button"&gt;&lt;/span&gt;
 </code></pre>
 
-	<h3>Options</h3>
+	<h3 id="options">Options</h3>
 
 	<table>
 		<thead>
@@ -107,7 +121,7 @@
 		</tbody>
 	</table>
 
-	<h3>Methods</h3>
+	<h3 id="methods">Methods</h3>
 
 	<table>
 		<thead>
@@ -156,13 +170,101 @@
 		</tbody>
 	</table>
 
-	<h3>Demo</h3>
+	<h3 id="demo">Demo</h3>
 
+	<h4>Global Option</h4>
 
+<pre><code>&lt;script type="text/javascript"&gt;
+var googleOpts = {
+	cellSize: [52,37],
+	cells: [7, 7],
+	initCell: [0,0],
+	wrap: false,
+	interval: 50
+};</code></pre>
 
-	<h3>Contact</h3>
+	<h4>Animate</h4>
+	<div id="animate">
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+	</div>
 
-	<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<pre><code>&lt;div id="animate"&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+$('#animate span.google-sprite').each(function(i) {
+	var sprite = $(this).sprite(googleOpts).hover(function() {
+		sprite.go();
+	},function() {
+		sprite.revert();
+	});
+	sprite.row(i);
+});
+&lt;/script&gt;</code></pre>
+
+	<h4>Swap</h4>
+	<div id="swap">
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+	</div>
+
+<pre><code>&lt;div id="swap"&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+	&lt;a href="#"&gt;&lt;span class="google-sprite"&gt;&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+$('#swap span.google-sprite').each(function(i) {
+	var sprite = $(this).sprite(googleOpts).hover(function() {
+		sprite.col(6);
+	},function() {
+		sprite.col(0);
+	});
+	sprite.row(i);
+});
+&lt;/script&gt;</code></pre>
+
+	<h4>Character Moving</h4>
+	<div id="board">
+		<span id="player1" class="player"></span>
+	</div>
+	<p>Move character as [A] ← [W] ↑ [S] ↓ [D] → and change character as [Enter]</p>
+
+	<script type="text/javascript" src="javascripts/demo.js"></script>
+
+	<h3 id="contact">Contact</h3>
+
+	<p>
+		<ul>
+			<li>Mail: <a href="mailto:yangkun7@gmail.com" class="user-metion">yangkun7@gmail.com</a></li>
+			<li>Blog: <a href="http://guny.kr" class="user-metion">http://guny.kr</a></li>
+			<li>Facebook: <a href="https://www.facebook.com/yangkun7" class="user-metion">https://www.facebook.com/yangkun7</a></li>
+			<li>Github: <a href="https://github.com/yangkun" class="user-metion">https://github.com/yangkun</a></li>
+		</ul>
+	</p>
 </section>
 
 </div>
