@@ -6,39 +6,32 @@
 	<link rel="stylesheet" type="text/css" href="style.css" media="all" />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script type="text/javascript" src="../jquery.sprite.js"></script>
-	<script type="text/javascript">
-	var $sprite = null,
-		$sprite2 = null;
-	$(function() {
-		$sprite = $('#btnGmail').sprite({
-			cellSize: [52,37],
-			cells: [7, 7],
-			initCell: [0,0],
-			wrap: false,
-			interval: 80
-		}).hover(function() {
-			$sprite.go();
-		},function() {
-			$sprite.revert();
-		});;
-		$sprite2 = $('#btnCal').sprite({
-			cellSize: [52,37],
-			cells: [7, 7],
-			initCell: [1,0],
-			wrap: false,
-			interval: 80
-		}).hover(function() {
-			$sprite2.go();
-		},function() {
-			$sprite2.revert();
-		});;
-
-	});
-	</script>
+	<script type="text/javascript" src="demo.js"></script>
 </head>
 <body>
-	<span id="btnGmail" class="google-sprite"></span>
-	<span id="btnCal" class="google-sprite"></span>
-
+	<h2>Animate</h2>
+	<div id="animate">
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+	</div>
+	<h2>Swap</h2>
+	<div id="swap">
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+		<a href="#"><span class="google-sprite"></span></a>
+	</div>
+	<h2>Game</h2>
+	<div id="board">
+		<span id="player1" class="player"></span>
+	</div>
 </body>
 </html>

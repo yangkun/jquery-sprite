@@ -21,6 +21,8 @@
 				xs = opts.cells[1],
 				row = opts.initCell[0],
 				col = opts.initCell[1],
+				offx = opts.offset[0],
+				offy = opts.offset[1],
 				timer = null;
 
 		// PUBLIC FUNCTIONS
@@ -36,7 +38,6 @@
 			col = lookup;
 			_setSprite(base,row,col);
 		};
-
 		this.prev = function() {
 			var lookup = col - 1;
 			if (lookup < 0) {
@@ -49,24 +50,40 @@
 			col = lookup;
 			_setSprite(base,row,col);
 		};
-
 		this.go = function() {
 			if(timer) base.stop();
 			if(!timer) timer = setInterval(this.next, opts.interval);
 		};
-
 		this.revert = function() {
 			if(timer) base.stop();
 			if(!timer) timer = setInterval(this.prev, opts.interval);
 		};
-
 		this.stop = function() {
 			if(timer) {
 				clearTimeout(timer);
 				timer = null;
 			}
 		};
-
+		this.cell = function(r,c) {
+			row = r;
+			col = c;
+			_setSprite(base, row, col);
+		};
+		this.row = function(r) {
+			if (r > ys - 1) r = (opts.wrap) ? 0 : ys - 1;
+			if (r < 0) r = (opts.wrap) ? ys -1 : 0;
+			this.cell(r,0);
+		};
+		this.col = function(c) {
+			if (c > xs - 1) c = (opts.wrap) ? 0 : xs - 1;
+			if (c < 0) c = (opts.wrap) ? xs -1 : 0;
+			this.cell(row,c);
+		};
+		this.offset = function(x,y) {
+			offx = x;
+			offy = y;
+			_setSprite(0,0);
+		};
 		return this.each(function(index, el) {
 			var $this = $(this);
 			// apply css as cell options
@@ -77,8 +94,8 @@
 
 		function _setSprite(el, row, col) {
 			$(el).css({
-				'background-position-x': ((-1 * w * col) + opts.offset[0]) + 'px',
-				'background-position-y': ((-1 * h * row) + opts.offset[1]) + 'px'
+				'background-position-x': (-1 * ((w * col) + offx)) + 'px',
+				'background-position-y': (-1 * ((h * row) + offy)) + 'px'
 			});
 		}
 	};
