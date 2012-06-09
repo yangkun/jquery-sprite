@@ -93,10 +93,14 @@
 		});
 
 		function _setSprite(el, row, col) {
-			$(el).css({
-				'background-position-x': (-1 * ((w * col) + offx)) + 'px',
-				'background-position-y': (-1 * ((h * row) + offy)) + 'px'
-			});
+			var x = (-1 * ((w * col) + offx)),
+				y = (-1 * ((h * row) + offy));
+			console.log(x + 'px ' + y + ' px');
+			$(el).css('background-position', x + 'px ' + y + 'px');
+			//	 $(el).css({
+			//	 'background-position-x': + 'px',
+			//	 'background-position-y': + 'px'
+			//	 });
 		}
 	};
 	// default options
