@@ -27,28 +27,57 @@
 
 		// PUBLIC FUNCTIONS
 		this.next = function() {
-			var lookup = col + 1;
-			if (lookup > xs -1) {
-				if(!opts.wrap) {
-					base.stop();
-					return;
+			if (opts.vertical==true){
+				var lookup = row + 1;
+				
+				if (lookup > ys -1) {
+					if(!opts.wrap) {
+						base.stop();
+						return;
+					}
+					lookup = 0;
 				}
-				lookup = 0;
+				row = lookup;
+				_setSprite(base,row,col);
+			}else{
+				var lookup = col + 1;
+				
+				if (lookup > xs -1) {
+					if(!opts.wrap) {
+						base.stop();
+						return;
+					}
+					lookup = 0;
+				}
+				col = lookup;
+				_setSprite(base,row,col);
 			}
-			col = lookup;
-			_setSprite(base,row,col);
 		};
 		this.prev = function() {
-			var lookup = col - 1;
-			if (lookup < 0) {
-				if(!opts.wrap) {
-					base.stop();
-					return;
+			if (opts.vertical==true){
+				var lookup = row - 1;
+				
+				if (lookup < 0) {
+					if(!opts.wrap) {
+						base.stop();
+						return;
+					}
+					lookup = 0;
 				}
-				lookup = xs - 1;
+				row = lookup;
+				_setSprite(base,row,col);
+			}else{
+				var lookup = col - 1;
+				if (lookup < 0) {
+					if(!opts.wrap) {
+						base.stop();
+						return;
+					}
+					lookup = xs - 1;
+				}
+				col = lookup;
+				_setSprite(base,row,col);
 			}
-			col = lookup;
-			_setSprite(base,row,col);
 		};
 		this.go = function() {
 			if(timer) base.stop();
@@ -89,12 +118,14 @@
 			// apply css as cell options
 			$this.css({'width':w, 'height':h});
 			if($this.css('display') == 'inline') $this.css('display', 'inline-block');
-			_setSprite(this, row, col);
+			_setSprite(this, row, col, (opts.offsInitial ? true : false));
 		});
 
-		function _setSprite(el, row, col) {
-			var x = (-1 * ((w * col) + offx)),
-				y = (-1 * ((h * row) + offy));
+		function _setSprite(el, row, col ,initial) {
+			initial = typeof initial !== 'undefined' ? initial : true;//default value for initial offset
+			var x = (-1 * ((w * col) + (initial ? 0 :offx ) )),
+				y = (-1 * ((h * row) + (initial ? 0 :offy ) ));
+			
 			$(el).css('background-position', x + 'px ' + y + 'px');
 		}
 	};
@@ -105,6 +136,8 @@
 		initCell: [0,0], // init cell [row, col]
 		offset: [0,0], // sprite's offset [x,y]
 		interval: 50, // animate speed
+		offsInitial: false,//offset initial sprite
+		vertical: false, //vertical animation
 		wrap: true
 	};
 
