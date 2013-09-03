@@ -68,7 +68,7 @@
 		this.cell = function(r,c) {
 			row = r;
 			col = c;
-			_setSprite(base, row, col);
+			_setSprite(base, row, col, false);
 		};
 		this.row = function(r) {
 			if (r > ys - 1) r = (opts.wrap) ? 0 : ys - 1;
@@ -83,16 +83,17 @@
 		this.offset = function(x,y) {
 			offx = x;
 			offy = y;
-			_setSprite(0,0);
+			_setSprite(0,0,false);
 		};
 		return this.each(function(index, el) {
 			var $this = $(this);
 			// apply css as cell options
 			$this.css({'width':w, 'height':h});
 			if($this.css('display') == 'inline') $this.css('display', 'inline-block');
-			_setSprite(this, row, col, (opts.offsInitial ? true : false));
+			_setSprite(this, row, col, false, (opts.offsInitial ? true : false));
 		});
-		function _setSprite(el, row, col, initial, last) {
+
+		function _setSprite(el, row, col, last, initial) {
 
 			if(last) {
 				opts.complete();
