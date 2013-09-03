@@ -32,10 +32,10 @@
 			var last = false;
 			if (opts.vertical === true){
 				last = row + 1 > ys -1;
-				row = !last ? row+1 : 0;
+				row = !last ? row+1 : ys - 1;
 			}else{
 				last = col + 1 > xs -1;
-				col = !last ? col+1 : 0;
+				col = !last ? col+1 : xs - 1;
 			}
 			_setSprite(base,row,col,last);
 		};
