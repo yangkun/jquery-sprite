@@ -4,7 +4,10 @@ $(function() {
 		cells: [7, 7],
 		initCell: [0,0],
 		wrap: false,
-		interval: 50
+		interval: 50,
+		complete: function() {
+			console.log('sprite animation end...');
+		}
 	};
 	$('#animate span.google-sprite').each(function(i) {
 		var sprite = $(this).sprite(googleOpts).hover(function() {
