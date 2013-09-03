@@ -10,6 +10,7 @@
  * http://www.opensource.org/licenses/gpl-license.php
  *
  * http://guny.kr
+ * http://ghophp.github.io/
  */
 ;(function($) {
 	$.fn.sprite = function(options) {
@@ -27,57 +28,28 @@
 
 		// PUBLIC FUNCTIONS
 		this.next = function() {
-			if (opts.vertical==true){
-				var lookup = row + 1;
-				
-				if (lookup > ys -1) {
-					if(!opts.wrap) {
-						base.stop();
-						return;
-					}
-					lookup = 0;
-				}
-				row = lookup;
-				_setSprite(base,row,col);
+
+			var last = false;
+			if (opts.vertical === true){
+				last = row + 1 > ys -1;
+				row = !last ? row+1 : 0;
 			}else{
-				var lookup = col + 1;
-				
-				if (lookup > xs -1) {
-					if(!opts.wrap) {
-						base.stop();
-						return;
-					}
-					lookup = 0;
-				}
-				col = lookup;
-				_setSprite(base,row,col);
+				last = col + 1 > xs -1;
+				col = !last ? col+1 : 0;
 			}
+			_setSprite(base,row,col,last);
 		};
 		this.prev = function() {
-			if (opts.vertical==true){
-				var lookup = row - 1;
-				
-				if (lookup < 0) {
-					if(!opts.wrap) {
-						base.stop();
-						return;
-					}
-					lookup = 0;
-				}
-				row = lookup;
-				_setSprite(base,row,col);
+
+			var last = false;
+			if (opts.vertical === true){
+				last = row - 1 < 0;
+				row = !last ? row-1 : 0;
 			}else{
-				var lookup = col - 1;
-				if (lookup < 0) {
-					if(!opts.wrap) {
-						base.stop();
-						return;
-					}
-					lookup = xs - 1;
-				}
-				col = lookup;
-				_setSprite(base,row,col);
+				last = col - 1 < 0;
+				col = !last ? col-1 : 0;
 			}
+			_setSprite(base,row,col,last);
 		};
 		this.go = function() {
 			if(timer) base.stop();
@@ -120,8 +92,16 @@
 			if($this.css('display') == 'inline') $this.css('display', 'inline-block');
 			_setSprite(this, row, col, (opts.offsInitial ? true : false));
 		});
+		function _setSprite(el, row, col, initial, last) {
 
-		function _setSprite(el, row, col ,initial) {
+			if(last) {
+				opts.complete();
+				if(!opts.wrap) {
+					base.stop();
+					return;
+				}
+			}
+
 			initial = typeof initial !== 'undefined' ? initial : true;//default value for initial offset
 			var x = (-1 * ((w * col) + (initial ? 0 :offx ) )),
 				y = (-1 * ((h * row) + (initial ? 0 :offy ) ));
@@ -138,7 +118,8 @@
 		interval: 50, // animate speed
 		offsInitial: false,//offset initial sprite
 		vertical: false, //vertical animation
-		wrap: true
+		wrap: true,
+		complete: function() {}
 	};
 
 })(jQuery);
