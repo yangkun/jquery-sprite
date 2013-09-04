@@ -1,7 +1,7 @@
 /**
  * A jQuery plugin for sprite animation
  *
- * Version 1.0
+ * Version 1.1
  * 2012-03-22
  *
  * Copyright (c) 2006 Luke Lutman (http://www.lukelutman.com)
@@ -13,20 +13,36 @@
  * http://ghophp.github.io/
  */
 ;(function($) {
+	
 	$.fn.sprite = function(options) {
+		
 		var base = this,
-				opts = $.extend(true, {}, $.fn.sprite.defaults, options || {}),
-				w = opts.cellSize[0],
-				h = opts.cellSize[1],
-				ys = opts.cells[0],
-				xs = opts.cells[1],
-				row = opts.initCell[0],
-				col = opts.initCell[1],
-				offx = opts.offset[0],
-				offy = opts.offset[1],
-				timer = null;
+			opts = $.extend(true, {}, $.fn.sprite.defaults, options || {}),
+			w = opts.cellSize[0],
+			h = opts.cellSize[1],
+			ys = opts.cells[0],
+			xs = opts.cells[1],
+			row = opts.initCell[0],
+			col = opts.initCell[1],
+			offx = opts.offset[0],
+			offy = opts.offset[1],
+			timer = null;
 
-		// PUBLIC FUNCTIONS
+		/* ----- PUBLIC FUNCTIONS ---- */
+		this.update = function(options) {
+			
+			base.stop();
+			opts = $.extend(true, {}, opts, options || {});
+
+			w = opts.cellSize[0];
+			h = opts.cellSize[1];
+			ys = opts.cells[0];
+			xs = opts.cells[1];
+			row = opts.initCell[0];
+			col = opts.initCell[1];
+			offx = opts.offset[0];
+			offy = opts.offset[1];
+		};
 		this.next = function() {
 
 			var last = false;
@@ -85,13 +101,26 @@
 			offy = y;
 			_setSprite(0,0,false);
 		};
+		
 		return this.each(function(index, el) {
+			
 			var $this = $(this);
-			// apply css as cell options
+			var display = $this.css('display');
+			
 			$this.css({'width':w, 'height':h});
-			if($this.css('display') == 'inline') $this.css('display', 'inline-block');
+			if(display !== 'inline-block' && display !== 'block') {
+				
+				if(typeof console !== 'undefined') {
+					console.warn('You trying to use the jquery-sprite on a non-block element...');
+				}
+				
+				$this.css('display', 'inline-block');
+			}
+
 			_setSprite(this, row, col, false, (opts.offsInitial ? true : false));
 		});
+
+		/* ----- PRIVATE FUNCTIONS ---- */
 
 		function _setSprite(el, row, col, last, initial) {
 
@@ -103,14 +132,16 @@
 				}
 			}
 
-			initial = typeof initial !== 'undefined' ? initial : true;//default value for initial offset
+			//default value for initial offset
+			initial = typeof initial !== 'undefined' ? initial : true;
+			
 			var x = (-1 * ((w * col) + (initial ? 0 :offx ) )),
 				y = (-1 * ((h * row) + (initial ? 0 :offy ) ));
 			
 			$(el).css('background-position', x + 'px ' + y + 'px');
 		}
 	};
-	// default options
+	
 	$.fn.sprite.defaults = {
 		cellSize: [0,0], // width, height
 		cells: [1,1], // count of [rows, cols]
